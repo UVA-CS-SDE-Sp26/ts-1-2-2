@@ -1,0 +1,37 @@
+Cipher Module Design (Role D) 
+
+Purpose:
+The Cipher module is responsible for converting ciphered text into readable plaintext.
+It accepts input text and applies a character substitution cipher using a key file.
+
+Cipher Key Format:
+The cipher key is stored in ciphers/key.txt.
+The file contains exactly two lines:
+- Line 1: plaintext characters
+- Line 2: corresponding cipher characters
+
+Example:
+ABCDEF
+QWERTY
+
+Each character in line 2 maps to the character at the same index in line 1.
+
+Validation Rules:
+- Both lines must exist
+- Both lines must be the same length
+- No duplicate characters are allowed
+- The cipher must be one-to-one
+
+Behavior:
+- If no alternate key is provided, the default key file is used
+- If an alternate key path is provided, it is loaded instead
+- If the cipher is invalid, an error is returned
+- Characters not found in the cipher are returned unchanged
+
+Responsibilities:
+- Load cipher from file
+- Validate cipher structure
+- Decipher text
+- Provide clean API for ProgramControl
+
+The Cipher module does not read data files or handle user input directly.
