@@ -1,0 +1,26 @@
+Command Line Interface Design (Role A)
+
+Purpose: The user interface, or in this case the command line, should take the user input
+and run the program with the correct specifications. The user should be able to run the program
+from the command line.
+
+Rules
+- The program should be run from the TopSecret class, using the command 'java topsecret'
+- The program accepts up to two parameters
+- One of the parameters should be a number corresponding to a file
+- The second parameter can be a specific alternate key to use when deciphering the contents
+of the file
+
+Behavior
+- 0 arguments: java topsecret - enumerate the available files (ex. 01 filea.txt)
+- 1 argument: java topsecret [fileNumber] - the contents of said file should be displayed
+using the default key
+- 2 arguments: java topsecret [fileNumber] [alternateKey] - the content of the file should be
+deciphered using the alternate key
+- If an incorrect argument is provided, then the program will display an error message
+
+An error has occurred if:
+- The first argument is not a number - ("Error: File index must be a number.")
+- The file number provided is not one of the options - ("Error: No file found at that index")
+- The user provides more than two arguments - ("Error: The user may only provide up to two
+arguments: a file number and an alternate key")
