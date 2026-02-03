@@ -1,0 +1,38 @@
+File Handler Design (Role B)
+---------------------------------------
+
+Responsibilities
+---------------------------------------
+Purpose: This section will be responsible for directly accessing all of the files.
+-Locates the data directory
+-List available data files
+-Read the avaiable data files
+-All data files must be located in the "data" folder
+
+Functionality
+---------------------------------------
+1) List Available Files:
+    -Scan "data" directory
+    -Return list of filenames
+    -Only return text (.txt) files
+
+2) Read Files:
+    -Accepts filename as input
+    -Read the contents of the input file
+    -Return file contents as a string
+
+3)Error handling:
+    -If the data directory does not exist, return an error
+    -If a requested file does not exist, return error
+    -If a file cannot be read, return error message
+
+Inputs and Outputs
+---------------------------------------
+Inputs:
+-Filename (String)
+
+Outputs:
+-List<String> of filenames
+-Strings containing file contents
+-Any error message that can happen
+
