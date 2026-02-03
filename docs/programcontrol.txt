@@ -1,0 +1,20 @@
+Program Control Interface Design (C)
+
+Purpose: The program should connect the command line to the file handler, requesting file contents and returning readable text.
+
+Rules:
+- When the program is executed with no arguments, a list of files and a corresponding number should be provided.
+- When the program is executed with a number (corresponding to a file), the contents of the file must be displayed correctly as text.
+
+Testing:
+1) Ensure that the first argument given is an available file. There are 3 total files.
+   - If the user enters 4: "Error, this file does not exist." Restart the program.
+   - If the user enters a non-integer value: "Error, this is not an integer." Restart the program.
+2) Ensure that the program works when no arguments are given.
+   - If the user enters "java topsecret", a list of each file with a corresponding number should be returned.
+3) Ensure that the file contents are correct.
+   - If the user properly selects a file, the file contents should print immediately and the program should end.
+4) Ensure that the cipher works.
+   - If no alternate key is provided: Default key file is provided and deciphers the text.
+   - If an alternate key is provided: The alternate key is successfully loaded and used to decipher the text.
+   - The ciphers should also correctly decipher the text.
