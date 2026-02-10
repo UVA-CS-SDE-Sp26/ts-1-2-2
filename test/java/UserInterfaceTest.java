@@ -19,6 +19,7 @@ public class UserInterfaceTest {
         CommandResult result = CommandParser.parse(new String []{"01"},files);
         assertTrue(result.contains("filea.txt"));
         assertTrue(result.contains("DEFAULT"));
+
     }
 
     @Test

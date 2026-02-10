@@ -5,6 +5,7 @@ public class CommandParser {
     public static String handle(String[] args, ArrayList<String> files) throws IllegalAccessException {
         if(args.length == 0){
             return "";
+
         }
 
         if(args.length > 2){
