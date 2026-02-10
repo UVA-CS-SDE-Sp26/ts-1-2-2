@@ -1,6 +1,7 @@
 Program Control Interface Design (C)
 
-Purpose: The program should connect the command line to the file handler, requesting file contents and returning readable text.
+Purpose: Coordination of program flow by interpreting the user's input. It will request data from the file handler
+and display the deciphered text.
 
 Rules:
 - When the program is executed with no arguments, a list of files and a corresponding number should be provided.
