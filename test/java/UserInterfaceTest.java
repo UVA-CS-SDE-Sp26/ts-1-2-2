@@ -1,53 +1,36 @@
-import static org.junit.jupiter.api.Assertions.*;
+
+//import org.junit.Test;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class UserInterfaceTest {
-    private final ArrayList<String> files =
-            List.of("filea.txt", "fileb.txt", "filec.txt");
     @Test
-    void noArgumentsListFile(){
-        CommandResult result = CommandParser.parse(new String []{},files);
-        assertTrue(result.contains("01 filea.txt"));
-        assertTrue(result.contains("02 fileb.txt"));
-        assertTrue(result.contains("03 filec.txt"));
-
+    public void testZeroArgs(){
+        String[] args = {};
+        UserInterface userInterface = new UserInterface();
+        //UserInterface commandParser = new UserInterface();
+        assertEquals("Listing available files to decipher: ",userInterface.parseArgs(args));
     }
 
     @Test
-    void oneArgumentValidFileUseDefaultKey(){
-        CommandResult result = CommandParser.parse(new String []{"01"},files);
-        assertTrue(result.contains("filea.txt"));
-        assertTrue(result.contains("DEFAULT"));
-
+    public void testOneArg(){
+        String[] args = {"filea.txt"};
+        UserInterface userInterface = new UserInterface();
+        assertEquals("Printing file "+args[0]+" using the default key",userInterface.parseArgs(args));
     }
 
     @Test
-    void twoArgumentsValidFileUseAltKey(){
-        CommandResult result = CommandParser.parse(new String []{"01","SecretKey"},files);
-        assertEquals(Action.SHOW_FILE,result.getAction());
-        assertTrue(result.contains("filea.txt"));
-        assertTrue(result.contains("SecretKey"));
+    public void testTwoArgs(){
+        String[] args = {"filea.txt","secretkey"};
+        UserInterface userInterface = new UserInterface();
+        assertEquals("Printing file "+args[0]+" using the " +args[1]+" key",userInterface.parseArgs(args));
     }
 
     @Test
-    void firstArgumentInvalid_ThrowError(){
-        Exception e = assertThrows(IllegalArgumentException.class, ()-> CommandParser.parse(new String []{"abd"},files));
-        assertEquals("Error: File index must be a number.",e.getMessage());
-
-    }
-
-    @Test
-    void moreThanTwoArguments_ThrowError(){
-        Exception e = assertThrows(IllegalArgumentException.class,() -> CommandParser.parse(new String []{"01","SecretKey","havefun"},files));
-        assertEquals("Error: The user may only provide up to two arguments: a file number and an alternate key",e.getMessage());
-
-    }
-
-    @Test
-    void invalidFileNumber_ThrowError(){
-        Exception e = assertThrows(IllegalArgumentException.class, () -> CommandParser.parse(new String []{"99"}));
-        assertEquals("Error: No file found at that index",e.getMessage());
-
+    public void testMoreThanTwoArgs(){
+        String[] args = {};
+        UserInterface userInterface = new UserInterface();
+        assertEquals("Error: The user may only provide up to two arguments: a file number and an alternate key",userInterface.parseArgs(args));
     }
 }

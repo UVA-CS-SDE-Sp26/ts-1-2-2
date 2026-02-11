@@ -20,7 +20,5 @@ deciphered using the alternate key
 - If an incorrect argument is provided, then the program will display an error message
 
 An error has occurred if:
-- The first argument is not a number - ("Error: File index must be a number.")
-- The file number provided is not one of the options - ("Error: No file found at that index")
 - The user provides more than two arguments - ("Error: The user may only provide up to two
 arguments: a file number and an alternate key")
