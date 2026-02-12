@@ -19,12 +19,8 @@ public class FileHandler {
         }
     }
     
-    public String readFile(String fileName) {
+    public String readFile(String fileName) throws IOException {
         Path filePath = Paths.get(dataFolder, fileName);
-        try {
-            return Files.readString(filePath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return Files.readString(filePath);
     }
 }

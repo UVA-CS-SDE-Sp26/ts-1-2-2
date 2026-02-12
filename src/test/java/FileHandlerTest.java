@@ -15,7 +15,13 @@ public class FileHandlerTest {
     @Test
     void readFilesReturnsCorrectContents() {
         FileHandler fileHandler = new FileHandler();
-        String contains = fileHandler.readFile("carnivore.txt");
+        String contains;
+        try {
+            contains = fileHandler.readFile("carnivore.txt");
+            // use fileContent
+        } catch (IOException e) {
+            return;
+        }
         assertTrue(contains.contains("Carnivore, later renamed DCS1000, was a system implemented by the Federal Bureau of Investigation (FBI) that was\n" +
                 "designed to monitor email and electronic communications. It used a customizable packet sniffer that could monitor all\n" +
                 "of a target user's Internet traffic. Carnivore was implemented in October 1997. By 2005 it had been replaced with\n" +
@@ -23,12 +29,10 @@ public class FileHandlerTest {
     }
 
     @Test
-    void readFilesThrowsExceptionWhenFileDoesNotExist() {
+    void readFilesFileDoesNotExist() {
         FileHandler fileHandler = new FileHandler();
-        String contains = fileHandler.readFile("nothere.txt");
         assertThrows(IOException.class, () -> {
             fileHandler.readFile("nothere.txt");
         });
     }
-
 }

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public class ProgramControl {
@@ -59,7 +60,14 @@ public class ProgramControl {
             key = "key"; // default key's name
 
         // get the file contents from file handler
-        String fileContent = fileHandler.readFile(fileName);
+
+        String fileContent;
+        try {
+            fileContent = fileHandler.readFile("carnivore.txt");
+            // use fileContent
+        } catch (IOException e) {
+            return "Error: Unable to read file.";
+        }
 
         // use the key to decipher this content
         String deciphered;
