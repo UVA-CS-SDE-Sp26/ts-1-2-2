@@ -9,35 +9,53 @@ public class UserInterfaceTest {
     @Test
     public void testZeroArgs(){
         String[] args = {};
-        UserInterface userInterface = new UserInterface();
-        assertEquals("Listing available files to decipher: ",userInterface.parseArgs(args));
+        UserInterface userInterface = new UserInterface(args);
+        String reality = userInterface.parseArgs(args).getMessage();
+        assertEquals("Listing available files to decipher: ",reality);
     }
 
     @Test
     public void testOneArg(){
         String[] args = {"01"};
-        UserInterface userInterface = new UserInterface();
-        assertEquals("Printing file "+args[0]+" using the default key",userInterface.parseArgs(args));
+        UserInterface userInterface = new UserInterface(args);
+        String reality = userInterface.parseArgs(args).getMessage();
+        String expected = "Printing file "+args[0]+" using the default key";
+        assertEquals(expected,reality);
     }
 
     @Test
-    public void testNotDigit(){
+    public void testNotDigitOneArg(){
         String[] args = {"filea.txt"};
-        UserInterface userInterface = new UserInterface();
-        assertEquals(args[0] +" is not a valid file input; it must be an number",userInterface.parseArgs(args));
+        UserInterface userInterface = new UserInterface(args);
+        String reality = userInterface.parseArgs(args).getMessage();
+        String expected = args[0] +" is not a valid file input; it must be an number";
+        assertEquals(expected,reality);
+    }
+
+    @Test
+    public void testNotDigitTwoArg(){
+        String[] args = {"filea.txt","secretkey"};
+        UserInterface userInterface = new UserInterface(args);
+        String reality = userInterface.parseArgs(args).getMessage();
+        String expected = args[0] +" is not a valid file input; it must be an number";
+        assertEquals(expected,reality);
     }
 
     @Test
     public void testTwoArgs(){
         String[] args = {"01","secretkey"};
-        UserInterface userInterface = new UserInterface();
-        assertEquals("Printing file "+args[0]+" using the " +args[1]+" key",userInterface.parseArgs(args));
+        UserInterface userInterface = new UserInterface(args);
+        String reality = userInterface.parseArgs(args).getMessage();
+        String expected = "Printing file "+args[0]+" using the " +args[1]+" key";
+        assertEquals(expected,reality);
     }
 
     @Test
     public void testMoreThanTwoArgs(){
         String[] args = {"01","secretkey","abc"};
-        UserInterface userInterface = new UserInterface();
-        assertEquals("Error: The user may only provide up to two arguments: a file number and an alternate key",userInterface.parseArgs(args));
+        UserInterface userInterface = new UserInterface(args);
+        String reality = userInterface.parseArgs(args).getMessage();
+        String expected = "Error: The user may only provide up to two arguments: a file number and an alternate key" +args[1]+" key";
+        assertEquals(expected,reality);
     }
 }
