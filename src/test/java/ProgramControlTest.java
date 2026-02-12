@@ -1,4 +1,4 @@
-/*
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockit0.*;
 import org.junit.jupiter.api.Test;
@@ -75,5 +75,3 @@ public class ProgramControlTest {
         assertTrue(result.contains("ABC")); // should match mocked decipher above
     }
 }
-
- */
