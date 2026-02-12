@@ -17,8 +17,17 @@ Behavior
 using the default key
 - 2 arguments: java topsecret [fileNumber] [alternateKey] - the content of the file should be
 deciphered using the alternate key
+- more than 2 arguments: error message, user is only allowed to provide up totwo arguments
 - If an incorrect argument is provided, then the program will display an error message
 
 An error has occurred if:
 - The user provides more than two arguments - ("Error: The user may only provide up to two
 arguments: a file number and an alternate key")
+- The user's first argument is not a digit corresponding to a file - ("Error: Input is not valid, must be a file number")
+
+Test:
+- Zero Arguments - should print corresponding message and list out files
+- First Argument is not a Digit - print error message, do not continue
+- One Argument - should print corresponding message and print out file contents using default key
+- Two Arguments - should print corresponding message and print out file contents using alternate key
+- More than Two Arguments - error message, user may not provide more than two arguments, do not continue
