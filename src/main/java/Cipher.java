@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Cipher {
 
-    // cipherChar to plainChar
+    // maps cipher characters to plaintext characters
     private final Map<Character, Character> map = new HashMap<>();
 
     public Cipher() {}
@@ -24,13 +24,13 @@ public class Cipher {
 
         char[] chars = text.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            // only replace if mapping exists
+            // leave unchanged if not in cipher
             chars[i] = map.getOrDefault(chars[i], chars[i]);
         }
         return new String(chars);
     }
 
-    // reads cipher file and builds mapping
+    // loads and validates the cipher key
     private void loadKey(String keyName) {
         map.clear();
         Path keyPath = Path.of("ciphers", keyName + ".txt");
