@@ -71,11 +71,9 @@ public class ProgramControl {
         }
 
         // use the key to decipher this content
-        String deciphered;
+        String deciphered = fileContent;
         if (cipher != null)
             deciphered = cipher.decipher(fileContent, key);
-        else
-            deciphered = fileContent;
 
         // final return: the file name and its contents
         return message + "\n" + deciphered;

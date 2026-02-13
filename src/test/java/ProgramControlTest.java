@@ -1,77 +1,65 @@
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockit0.*;
 import org.junit.jupiter.api.Test;
-import java.util.*;
 
-@ExtendWith(MockitoExtension.class)
 public class ProgramControlTest {
 
-    // mock the file handler and cipher classes
-    @Mock
-    FileHandler fileHandler;
-
-    @Mock
-    Cipher cipher;
-
-    // check that if no arguments are given, the files and corresponding number will be listed
-        // similar to the first test in the UserInterface test file
+    // check if no arguments are given, it lists all files
     @Test
-    void noArgument() {
-        ArrayList<String> files = new ArrayList<>(List.of(filea.txt, fileb.txt); // mock list of files
+    void noArguments() {
+        String[] args = {}; // no args
+        UserInterface ui = new UserInterface(args);
+        FileHandler fh = new FileHandler();
+        Cipher cipher = new Cipher();
 
-        when(fileHandler.getFileList()).thenReturn(files)); // simulate returning files
+        ProgramControl pc = new ProgramControl(ui, fh, null); // doing null bc cannot access exact files
+        String result = pc.run(new String[]{}); // no args
 
-        programControl pc = new ProgramControl(fileHandler, cipher); // objects
-        String result = pc.run(new String[]{});
-
-        assertTrue(result.contains("filea.txt")); // checks
-        assertTrue(result.contains("fileb.txt"));
+        assertTrue(result.contains("01")); // file number
+        assertTrue(result.contains("txt")); // file name
     }
 
-    // check that the user inputs a number for a file type, throws error if not
-        // this is similar to the last test in the UserInterface file
+    // check if one argument is given (so uses default key), the program returns
     @Test
-    void invalidFile() {
-        ArrayList<String> files = new ArrayList<>(List.of("filea.txt"); // just one file
+    void oneArgument_defaultKey() {
+        String[] args = {"1"};
+        UserInterface ui = new UserInterface(args);
+        FileHandler fh = new FileHandler();
+        Cipher cipher = new Cipher();
 
-        while(fileHandler.getFileList()).thenReturn(files)); // simulate returning files
-
-        ProgramControl pc = new ProgramControl(fileHandler,cipher);
-
-        Exception e = assertThrows(IllegalArgumentException.class, () -> pc.run(new String[]{"99"}));
-        assertEquals("Error: The user must provide a relevant file index number.")
-    }
-
-    // check that the right output gets returned with the default cipher
-    @Test
-    void validFile_default() {
-        ArrayList<String> files = new ArrayList<>(List.of("filea.txt"));
-
-        // simulate using returning the files and using the default cipher
-        when(fileHandler.getFileList()).thenReturn(files);
-        when(fileHandler.getFileContents("filea.txt")).thenReturn("XYZ");
-        when(cipher.decipher("XYZ", "Default")).thenReturn("ABC");
-
-        ProgramControl pc = new ProgramControl(fileHandler, cipher);
+        ProgramControl pc = new ProgramControl(ui, fh, null);
         String result = pc.run(new String[]{"1"});
 
-        assertTrue(result.contains("ABC")); // should match mocked decipher above
+        assertTrue(result.contains("Printing file 1")); // should output this based on user interface code
+        assertTrue(result.contains("default key")); // output should have default in it
+        assertNotNull(result);
     }
 
-    // check that the right output gets returned with an alternate cipher
+    // check if two args are presented (an alternate decipher key is used), it returns
     @Test
-    void validFile_alternate() {
-        ArrayList<String> files = new ArrayList<>(List.of("filea.txt"));
+    void twoArguments_alternateKey() {
+        String[] args = {"1","secretkey"};
+        UserInterface ui = new UserInterface(args);
+        FileHandler fh = new FileHandler();
+        Cipher cipher = new Cipher();
 
-        // simulate using returning the files and using the cipher
-        when(fileHandler.getFileList()).thenReturn(files);
-        when(fileHandler.getFileContents("filea.txt")).thenReturn("XYZ");
-        when(cipher.decipher("XYZ", "SecretKey")).thenReturn("ABC");
+        ProgramControl pc = new ProgramControl(ui, fh, null);
+        String result = pc.run(new String[]{"1", "secretkey"});
 
-        ProgramControl pc = new ProgramControl(fileHandler, cipher);
-        String result = pc.run(new String[]{"1", "SecretKey"});
+        assertTrue(result.contains("Printing file 1")); // should output file num
+        assertTrue(result.contains("secretkey")); // should output this bc key was given
+    }
 
-        assertTrue(result.contains("ABC")); // should match mocked decipher above
+    // check if invalid file number is given, error is thrown
+    @Test
+    void invalidFile() {
+        String[] args = {"abc"}; // non num not allowed
+        UserInterface ui = new UserInterface(args);
+        FileHandler fh = new FileHandler();
+        Cipher cipher = new Cipher();
+
+        ProgramControl pc = new ProgramControl(ui, fh, null);
+        String result = pc.run(new String[]{"abc"});
+
+        assertTrue(result.contains("Error")); // error message should be sent
     }
 }
