@@ -10,14 +10,13 @@ public class CipherTest {
 
     @Test
     void defaultKeyDeciphersCorrectly() throws Exception {
-        Path root = Files.createTempDirectory("proj");
-        Path ciphers = Files.createDirectory(root.resolve("ciphers"));
+        Path ciphers = Path.of("ciphers");
+        Files.createDirectories(ciphers);
+
         Files.write(ciphers.resolve("key.txt"), List.of(
                 "ABC",
                 "XYZ"
         ));
-
-        System.setProperty("user.dir", root.toString());
 
         Cipher cipher = new Cipher();
         assertEquals("ABC", cipher.decipher("XYZ"));
@@ -25,29 +24,27 @@ public class CipherTest {
 
     @Test
     void alternateKeyDeciphersCorrectly() throws Exception {
-        Path root = Files.createTempDirectory("proj");
-        Path ciphers = Files.createDirectory(root.resolve("ciphers"));
+        Path ciphers = Path.of("ciphers");
+        Files.createDirectories(ciphers);
+
         Files.write(ciphers.resolve("secret.txt"), List.of(
                 "ABC",
                 "XYZ"
         ));
-
-        System.setProperty("user.dir", root.toString());
 
         Cipher cipher = new Cipher();
         assertEquals("ABC", cipher.decipher("XYZ", "secret"));
     }
 
     @Test
-    void nonCipherCharactersStaySame() throws Exception {
-        Path root = Files.createTempDirectory("proj");
-        Path ciphers = Files.createDirectory(root.resolve("ciphers"));
+    void nonCipherCharactersRemainUnchanged() throws Exception {
+        Path ciphers = Path.of("ciphers");
+        Files.createDirectories(ciphers);
+
         Files.write(ciphers.resolve("key.txt"), List.of(
                 "ABC",
                 "XYZ"
         ));
-
-        System.setProperty("user.dir", root.toString());
 
         Cipher cipher = new Cipher();
         assertEquals("A!C", cipher.decipher("X!Z"));
@@ -55,14 +52,13 @@ public class CipherTest {
 
     @Test
     void invalidCipherThrowsException() throws Exception {
-        Path root = Files.createTempDirectory("proj");
-        Path ciphers = Files.createDirectory(root.resolve("ciphers"));
+        Path ciphers = Path.of("ciphers");
+        Files.createDirectories(ciphers);
+
         Files.write(ciphers.resolve("key.txt"), List.of(
                 "ABC",
                 "XXY"
         ));
-
-        System.setProperty("user.dir", root.toString());
 
         Cipher cipher = new Cipher();
         assertThrows(IllegalArgumentException.class, () -> cipher.decipher("XYZ"));
