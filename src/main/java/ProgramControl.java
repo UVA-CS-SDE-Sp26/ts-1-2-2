@@ -23,7 +23,8 @@ public class ProgramControl {
         ArrayList<String> fileList = new ArrayList<>(files);
 
         // use command parser to handle the user's input
-        String message = ui.parseArgs(args);
+        UserInterface.Tuple tuple = ui.parseArgs(args);
+        String message = tuple.getMessage();
 
         // if no args are given, list the files
         if (args.length == 0) {
@@ -63,7 +64,7 @@ public class ProgramControl {
 
         String fileContent;
         try {
-            fileContent = fileHandler.readFile("carnivore.txt");
+            fileContent = fileHandler.readFile(fileName);
             // use fileContent
         } catch (IOException e) {
             return "Error: Unable to read file.";
