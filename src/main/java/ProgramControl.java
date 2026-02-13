@@ -25,7 +25,9 @@ public class ProgramControl {
         // use command parser to handle the user's input
         UserInterface.Tuple tuple = ui.parseArgs(args);
         String message = tuple.getMessage();
-
+        if(tuple.getStatus()==-1){
+            return message;
+        }
         // if no args are given, list the files
         if (args.length == 0) {
             String result = message + "\n";
